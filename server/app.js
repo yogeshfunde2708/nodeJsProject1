@@ -13,14 +13,19 @@ app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 
 //creat
-app.post('insert', (request, response) =>{
+app.post('/insert', (request, response) =>{
+    const {name} = request.body;
 
 });
 //read 
 app.get('/getAll',(request,response)=>{
-    response.json({
-        success : true
-    });
+    const db = dbService.getDbserviceInstance();
+
+    const result = db.getAllData();
+    
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
 })
 
 //update 
